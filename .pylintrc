@@ -1,0 +1,6 @@
+[MASTER]
+#Ignore error for lines over 100 characters
+#Ignore error for missing encoding on file open function
+#Ignore error for too many instance attributes
+#Ignore error for too few public methods
+disable=C0301, W1514, R0902, R0903

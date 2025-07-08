@@ -172,7 +172,7 @@ def add_image(user_id, tags):
 
 def list_user_images(user_id):
     '''Generates list of tuples with image data by user_id'''
-    user_data = []
+    user_data = set()
     start_path = Path(images.PICTURE_DIR) / user_id
     images.list_user_images(start_path, user_data)
     logger.info(f"List of tuples generated: {user_data}")
@@ -181,4 +181,3 @@ def list_user_images(user_id):
 def reconcile_images(user_id):
     '''Generates list of Pictures entries by User ID'''
     images.reconcile_images(user_id)
-

@@ -13,7 +13,7 @@ logger.add("log_{time:MM-DD-YYYY}.log")
 logger.add(sys.stderr, format="{time:MMMM D, YYYY > HH:mm:ss} | {level} | {message}")
 
 def log_function(func):
-    # This is the function that will actually be called when someone executes a method with a decorator
+    '''This is the function that will actually be called when someone executes a method with a decorator'''
     def logged(*args, **kwargs):
         logger.debug(f"Function {func.__name__} called")
         if args:
@@ -192,15 +192,15 @@ def add_image():
 
         if new_tag == '':
             break
-        else:
-            tags.append(new_tag)
-            continue
+        tags.append(new_tag)
+        continue
 
     tag_entry = " ".join(tags)
     main.add_image(user_id, tag_entry)
 
 @log_function
 def load_images():
+    '''Loads user images from csv file'''
     filename = input('Enter filename of images file: ')
     current_dir = os.path.dirname(os.path.abspath(__file__))
     filename = os.path.join(current_dir, filename)
@@ -210,13 +210,15 @@ def load_images():
 
 @log_function
 def list_images():
+    '''Creates list of images related to a single user'''
     user_id = input('User ID: ')
     main.list_user_images(user_id)
 
 
 @log_function
 def reconcile_images():
-    pass
+    '''Compares server images to database images'''
+    raise NotImplementedError
 
 @log_function
 def quit_program():

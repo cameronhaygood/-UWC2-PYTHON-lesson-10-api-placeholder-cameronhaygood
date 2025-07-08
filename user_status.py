@@ -4,7 +4,7 @@ classes to manage the user status messages
 # pylint: disable=R0903
 import csv
 from loguru import logger
-from peewee import IntegrityError
+# from peewee import IntegrityError
 
 
 from socialnetwork_model import insert_table, Statuses, search_table, update_table, delete_table
@@ -71,4 +71,3 @@ def load_statuses(filename):
     except FileNotFoundError:
         logger.error(f"Error: File {filename} not found.")
         return False
-

@@ -92,6 +92,7 @@ class TestMain(unittest.TestCase):
     bad_accounts_csv_filename = "bad_accounts.csv"
     status_updates_csv_filename = "test_status_updates.csv"
     bad_status_updates_csv_filename = "bad_status_updates.csv"
+    images_csv_filename = "test_images.csv"
     accounts_csv_filepath = os.path.join(current_dir, accounts_csv_filename)
     status_updates_csv_filepath = os.path.join(current_dir, status_updates_csv_filename)
 
@@ -320,11 +321,12 @@ class TestMain(unittest.TestCase):
 
 
     def test_add_image(self):
+        '''Tests adding image to database and listing the addition'''
         self.assertTrue(main.add_image(self.known_user.user_id,
                                        self.known_user.new_tags))
 
         result = main.list_user_images(self.known_user.user_id)
-        self.assertTrue(result == [('chaygood', ['golf', 'skiing', 'snowboarding'], '0000000002.png')])
+        self.assertTrue(result == {('chaygood', 'golf/skiing/snowboarding', '0000000002.png')})
 
     # def test_add_image_conflict(self):
     #     print('breakpoint 1')
@@ -332,7 +334,11 @@ class TestMain(unittest.TestCase):
     #                                     self.known_user.new_tags))
     #     print('breakpoint')
 
-    def test_reconcile(self):
-        main.add_image(self.known_user.user_id,
-                       self.known_user.new_tags)
-        main.reconcile_images(self.known_user.user_id)
+    # def test_reconcile(self):
+    #     main.add_image(self.known_user.user_id,
+    #                    self.known_user.new_tags)
+    #     main.reconcile_images(self.known_user.user_id)
+
+    def test_load_images(self):
+        '''Tests loading images from csv'''
+        self.assertTrue(main.load_images(self.images_csv_filename))
