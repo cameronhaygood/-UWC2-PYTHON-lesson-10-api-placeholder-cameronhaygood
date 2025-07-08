@@ -1,3 +1,7 @@
 loguru
 peewee
 flask
+sqlalchemy
+pylint
+coverage
+
