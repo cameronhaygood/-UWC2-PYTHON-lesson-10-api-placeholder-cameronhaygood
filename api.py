@@ -5,6 +5,8 @@ from flask_restful import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 
+import main
+
 app = Flask(__name__, instance_path=str(Path(".").absolute()))
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///social_network.db"
 
@@ -67,10 +69,22 @@ class Picture(Resource):
     def get(self):
         return jsonify([record.serialize() for record in PictureRecord.query.all()])
 
+class ImageDiff(Resource):
+    def get(self, user_id):
+        """
+        Attempts to call reconcile images and report out
+        """
+        try:
+            return jsonify(main.reconcile_images(user_id))
+        except Exception as e:
+            return jsonify({'error': str(e),
+                            'message': 'Unable to properly implement reconcile image function in Lesson 9'})
+
 #Define End Points
 api.add_resource(User, "/users")
 api.add_resource(Status, "/statuses")
 api.add_resource(Picture, "/pictures")
+api.add_resource(ImageDiff, "/diff/<user_id>")
 
 if __name__ == '__main__':
     app.run(port=5002, debug=True)
